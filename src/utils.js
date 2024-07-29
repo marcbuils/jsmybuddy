@@ -19,9 +19,21 @@ function buf2hex(buffer) { // buffer is an ArrayBuffer
   return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2));
 }
 
-function transToHexString(genre, commands = []) {
+function splitInNumbers(input) {
+  let res = [];
+  for (let i = 0; i < input.length; i += 2) {
+    res.push(parseInt(input.substr(i, 2), 16));
+  }
+  return res;
+}
+
+function transToHexString(id, genre, commands = []) {
   let result = "";
   let temp;
+
+  temp = id.toString(16);
+  const deviceId = temp.length == 2 ? temp : '0' + temp;
+
   commands.forEach(item => {
     if (isArray(item)) {
       item.forEach(i => {
@@ -36,7 +48,12 @@ function transToHexString(genre, commands = []) {
   });
   let commandLen = (parseInt(result.length / 2) + 2).toString(16);
   let lenStr = commandLen.length == 2 ? commandLen : '0' + commandLen;
-  return Comman.Command.HEADER + Comman.Command.HEADER + lenStr + genre + result + Comman.Command.FOOTER;
+
+  const checkDigit = (splitInNumbers(result).reduce((a, b) => a + b, 0) + parseInt(genre, 16)) & 0xff;
+  temp = checkDigit.toString(16);
+  const checkDigitStr = temp.length == 2 ? temp : '0' + temp;
+
+  return Comman.Command.HEADER + Comman.Command.HEADER + deviceId + lenStr + genre + result + checkDigitStr;
 }
 
 function processReceived(buf) {

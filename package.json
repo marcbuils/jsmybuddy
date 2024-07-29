@@ -1,21 +1,21 @@
 {
-  "name": "mycobot",
+  "name": "@marcbuils/mybuddy",
   "version": "0.0.5",
-  "description": "This is a javascript API for mycobot serial communication",
+  "description": "This is a javascript API for mybuddy serial communication",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elephantrobotics/jsmycobot.git"
+    "url": "git+https://github.com/marcbuils/jsmybuddy.git"
   },
   "author": "weiquan.xu@elephantrobotics.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elephantrobotics/jsmycobot/issues"
+    "url": "https://github.com/marcbuils/jsmybuddy/issues"
   },
-  "homepage": "https://github.com/elephantrobotics/jsmycobot#readme",
+  "homepage": "https://github.com/marcbuils/jsmybuddy#readme",
   "dependencies": {
     "serialport": "^9.1.0"
   }
