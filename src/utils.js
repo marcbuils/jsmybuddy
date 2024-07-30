@@ -19,7 +19,7 @@ function buf2hex(buffer) { // buffer is an ArrayBuffer
   return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2));
 }
 
-function splitInNumbers(input) {
+function hexString2HexArr(input) {
   let res = [];
   for (let i = 0; i < input.length; i += 2) {
     res.push(parseInt(input.substr(i, 2), 16));
@@ -49,7 +49,7 @@ function transToHexString(id, genre, commands = []) {
   let commandLen = (parseInt(result.length / 2) + 2).toString(16);
   let lenStr = commandLen.length == 2 ? commandLen : '0' + commandLen;
 
-  const checkDigit = (splitInNumbers(result).reduce((a, b) => a + b, 0) + parseInt(genre, 16)) & 0xff;
+  const checkDigit = (hexString2HexArr(result).reduce((a, b) => a + b, 0) + parseInt(genre, 16)) & 0xff;
   temp = checkDigit.toString(16);
   const checkDigitStr = temp.length == 2 ? temp : '0' + temp;
 
@@ -60,15 +60,15 @@ function processReceived(buf) {
   let hexArr = buf2hex(buf);
   /**
    * Looking for valid data from the received data. Like:
-   *  '  fe     fe     0e    20'
-   *   header header length type
+   *  '  fe     fe     02     0e    20'
+   *   header header device length type
    */
   let genre, len, index;
   for (let i = 0; i < hexArr.length; ++i) {
     if (hexArr[i] == 'fe' && hexArr[i + 1] == 'fe') {
-      len = parseInt(hexArr[i + 2], 16) - 2;
-      genre = hexArr[i + 3];
-      index = i + 4;
+      len = parseInt(hexArr[i + 3], 16) - 2;
+      genre = hexArr[i + 4];
+      index = i + 5;
     }
   }
   if (genre === undefined || len === undefined)

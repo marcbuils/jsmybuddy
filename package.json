@@ -1,6 +1,6 @@
 {
   "name": "@marcbuils/mybuddy",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "This is a javascript API for mybuddy serial communication",
   "main": "src/index.js",
   "scripts": {
