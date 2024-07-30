@@ -251,7 +251,7 @@ function setGripperIni() {
   return Buffer.from(utils.transToHexString(deviceId, Comman.Command.SET_GRIPPER_INI), "hex");
 }
 // 检测gripper是否运动
-function isGripperMving(deviceId) {
+function isGripperMoving(deviceId) {
   return Buffer.from(utils.transToHexString(deviceId, Comman.Command.IS_GRIPPER_MOVING), "hex");
 }
 
@@ -269,6 +269,7 @@ function setColor(deviceId, r, g, b) {
 }
 
 module.exports = {
+  COMMAND: Comman.Command,
   connect,
   getAngles,
   processReceived: utils.processReceived,
