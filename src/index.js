@@ -295,7 +295,7 @@ module.exports = {
   setSpeed,
   isAllServoEnable,
   isControllerConnect,
-  isGripperMving,
+  isGripperMoving,
   isInPosition,
   isPowerOn,
   isServoEnable,
